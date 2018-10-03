@@ -18,11 +18,20 @@ const router = require('./routes');
 
 
 const app = new Koa();
+const koaSwagger = require('koa2-swagger-ui');
+
 
 // Trust proxy
 app.proxy = true;
 
 // Set middlewares
+app.use(koaSwagger({
+  routePrefix: '/swagger',
+  swaggerOptions: {
+    url: 'http://localhost:7070/spec',
+  },
+}));
+
 app.use(
   bodyParser({
     enableTypes: ['json', 'form'],
